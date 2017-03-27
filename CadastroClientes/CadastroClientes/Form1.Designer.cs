@@ -1,4 +1,4 @@
-﻿namespace CadastroClientes
+﻿namespace CadastroClientes.Interface
 {
     partial class Form1
     {
@@ -140,6 +140,7 @@
             this.btnVer.TabIndex = 10;
             this.btnVer.Text = "Ver Cadastros";
             this.btnVer.UseVisualStyleBackColor = true;
+            this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
             // 
             // txtNome
             // 

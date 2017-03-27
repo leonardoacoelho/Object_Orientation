@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
 
-namespace CadastroClientes
+namespace CadastroClientes.AcessoDados
 {
     public class Conexao
     {

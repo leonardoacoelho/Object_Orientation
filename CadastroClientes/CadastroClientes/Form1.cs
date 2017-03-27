@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CadastroClientes.Entidades;
+using CadastroClientes.LogicasNegocio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CadastroClientes
+namespace CadastroClientes.Interface
 {
     public partial class Form1 : Form
     {
@@ -35,7 +37,8 @@ namespace CadastroClientes
                     cliente.Celular = txtCel.Text;
                     cliente.Email = txtEmail.Text;
 
-                    cliente.Salvar();
+                    var logica = new ClienteLogica();
+                    logica.Salvar(cliente);
 
                     MessageBox.Show("Salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -43,9 +46,9 @@ namespace CadastroClientes
                 {
                     MessageBox.Show("O telefone deve ter 8 ou 9 dígitos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Erro ao Salvar!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -59,6 +62,12 @@ namespace CadastroClientes
             txtTel.Text = "";
             txtCel.Text = "";
             txtEmail.Text = "";
+        }
+
+        private void btnVer_Click(object sender, EventArgs e)
+        {
+            var lista = new Lista();
+            lista.Show();
         }
     }
 }
