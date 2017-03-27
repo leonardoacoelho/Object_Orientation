@@ -26,23 +26,22 @@ namespace CadastroClientes
             {
                 try
                 {
-                    var conn = Conexao.ObterConexao();
-                    var query = $"insert into Cliente (Nome, Endereco, Bairro, Estado, Telefone, Celular, Email) values (@Nome, @End, @Bairro, @Estado, @Tel, @Cel, @Email)";
+                    var cliente = new Cliente();
+                    cliente.Nome = txtNome.Text;
+                    cliente.Endereco = txtEnd.Text;
+                    cliente.Bairro = txtBairro.Text;
+                    cliente.Estado = cbbEstado.Text;
+                    cliente.Telefone = txtTel.Text;
+                    cliente.Celular = txtCel.Text;
+                    cliente.Email = txtEmail.Text;
 
-                    var cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Nome", txtNome.Text);
-                    cmd.Parameters.AddWithValue("@End", txtEnd.Text);
-                    cmd.Parameters.AddWithValue("@Bairro", txtBairro.Text);
-                    cmd.Parameters.AddWithValue("@Estado", cbbEstado.Text);
-                    cmd.Parameters.AddWithValue("@Tel", txtTel.Text);
-                    cmd.Parameters.AddWithValue("@Cel", txtCel.Text);
-                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
+                    cliente.Salvar();
 
                     MessageBox.Show("Salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    MessageBox.Show("O telefone deve ter 8 ou 9 dígitos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception)
                 {
