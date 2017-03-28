@@ -81,7 +81,5 @@ namespace CadastroClientes.AcessoDados
                 throw;
             }
         }
-
-
     }
 }
