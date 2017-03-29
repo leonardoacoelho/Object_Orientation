@@ -50,6 +50,7 @@
             this.dgvVegetal.ReadOnly = true;
             this.dgvVegetal.Size = new System.Drawing.Size(444, 336);
             this.dgvVegetal.TabIndex = 0;
+            this.dgvVegetal.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVegetal_CellDoubleClick);
             // 
             // Codigo
             // 

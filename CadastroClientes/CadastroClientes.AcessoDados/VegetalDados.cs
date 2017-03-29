@@ -17,13 +17,14 @@ namespace CadastroClientes.AcessoDados
             conn = Conexao.ObterConexao();
 
         }
-        public void Finalizar(Vegetal vegetal)
+        public void Salvar(Vegetal vegetal)
         {
             try
             {
                 var query = "insert into Vegetais (Nome, Tamanho) values (@Nome, @Tamanho)";
 
                 var cmd = new SqlCommand(query, conn);
+
                 cmd.Parameters.AddWithValue("@Nome", vegetal.Nome);
                 cmd.Parameters.AddWithValue("@Tamanho", vegetal.Tamanho);
 
@@ -38,7 +39,53 @@ namespace CadastroClientes.AcessoDados
             }
 
         }
-        public List<Vegetal> Mostrar()
+
+        public void Editar(Vegetal vegetal)
+        {
+            try
+            {
+                var query = "update Vegetais set Nome = @Nome, Tamanho = @Tamanho";
+
+                var cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@Nome", vegetal.Nome);
+                cmd.Parameters.AddWithValue("@Tamanho", vegetal.Tamanho);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        public void Remover( int codigo)
+        {
+            try
+            {
+                var query = "delete from Vegetais where Codigo = @Codigo";
+
+                var cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@Codigo", codigo);
+                
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        public List<Vegetal> Listar()
         {
             try
             {
@@ -46,7 +93,7 @@ namespace CadastroClientes.AcessoDados
 
                 var cmd = new SqlCommand(query, conn);
 
-                var vegetal = new List<Vegetal>();
+                var vegetais = new List<Vegetal>();
 
                 conn.Open();
                 var datareader = cmd.ExecuteReader();
@@ -54,23 +101,47 @@ namespace CadastroClientes.AcessoDados
                 if (datareader.HasRows)
                     while (datareader.Read())
                     {
-                        var vegetais = new Vegetal();
-                        vegetais.Codigo = Convert.ToInt32(datareader["Codigo"].ToString());
+                        var vegetal = new Vegetal();
+                        vegetal.Codigo = Convert.ToInt32(datareader["Codigo"].ToString());
 
-                        vegetais.Nome = datareader["Nome"].ToString();
-                        vegetais.Tamanho = datareader["Tamanho"].ToString();
+                        vegetal.Nome = datareader["Nome"].ToString();
+                        vegetal.Tamanho = datareader["Tamanho"].ToString();
 
-                        vegetal.Add(vegetais);
+                        vegetais.Add(vegetal);
                     }
                 conn.Close();
 
-                return vegetal;
+                return vegetais;
             }
             catch (Exception)
             {
 
                 throw;
             }
+        }
+
+        public Vegetal Encontrar(int codigo)
+        {
+            var query = "select * from Vegetais where Codigo = @Codigo ";
+
+            var cmd = new SqlCommand(query, conn);
+
+            conn.Open();
+
+            var datareader = cmd.ExecuteReader();
+
+            var vegetal = new Vegetal();
+
+            if (datareader.HasRows)
+            {
+                datareader.Read();
+
+                vegetal.Codigo = Convert.ToInt32(datareader["Codigo"].ToString());
+                vegetal.Nome = datareader["Nome"].ToString();
+                vegetal.Tamanho = datareader["Tamanho"].ToString();
+            }
+            conn.Close();
+            return vegetal;
         }
     }
 }

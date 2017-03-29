@@ -19,14 +19,14 @@ namespace CadastroClientes.LogicasNegocio
 
         public void Finalizar(Vegetal vegetal)
         {
-            dados.Finalizar(vegetal);
+            dados.Salvar(vegetal);
         }
 
         public List<Vegetal> Mostrar()
         {
             try
             {
-                return dados.Mostrar();
+                return dados.Listar();
             }
             catch (Exception)
             {

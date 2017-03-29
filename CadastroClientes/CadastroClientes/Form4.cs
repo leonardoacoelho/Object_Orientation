@@ -1,4 +1,5 @@
-﻿using CadastroClientes.LogicasNegocio;
+﻿using CadastroClientes.Entidades;
+using CadastroClientes.LogicasNegocio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,8 +29,17 @@ namespace CadastroClientes.Interface
             }
             catch (Exception)
             {
-                
+
                 throw;
+            }
+        }
+
+        private void dgvVegetal_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var codigo = dgvVegetal.Rows[e.RowIndex].Cells["Codigo"].Value.ToString();
+                MessageBox.Show(codigo);
             }
         }
     }
