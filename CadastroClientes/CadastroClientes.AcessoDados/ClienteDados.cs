@@ -26,7 +26,7 @@ namespace CadastroClientes.AcessoDados
         /// Método que salva um cliente no banco de dados
         /// </summary>
         /// <param name="cliente">Instância de um cliente preenchido</param>
-        public void Salvar(Cliente cliente)
+        public void Inserir(Cliente cliente)
         {
             try
             {
@@ -50,14 +50,17 @@ namespace CadastroClientes.AcessoDados
 
                 //Executar o comando criado
                 cmd.ExecuteNonQuery();
-
-                //Fechar a conexão com o banco de dados
-                conn.Close();
+                
             }
             catch (Exception)
             {
                 //Relança a excessão para a camada superior 
                 throw;
+            }
+            finally
+            {
+                //Fechar a conexão com o banco de dados
+                conn.Close();
             }
         }
 
@@ -91,13 +94,16 @@ namespace CadastroClientes.AcessoDados
                 //Executar o comando criado
                 cmd.ExecuteNonQuery();
 
-                //Fechar a conexão com o banco de dados
-                conn.Close();
             }
             catch (Exception)
             {
                 //Relança a excessão para a camada superior 
                 throw;
+            }
+            finally
+            {
+                //Fechar a conexão com o banco de dados
+                conn.Close();
             }
         }
 
@@ -124,13 +130,16 @@ namespace CadastroClientes.AcessoDados
                 //Executar o comando criado
                 cmd.ExecuteNonQuery();
 
-                //Fechar a conexão com o banco de dados
-                conn.Close();
             }
             catch (Exception)
             {
                 //Relança a excessão para a camada superior 
                 throw;
+            }
+            finally
+            {
+                //Fechar a conexão com o banco de dados
+                conn.Close();
             }
         }
 
@@ -181,9 +190,6 @@ namespace CadastroClientes.AcessoDados
                     }
                 }
 
-                //Fechar a conexão com o banco de dados
-                conn.Close();
-
                 //Retorna a lista de clientes preenchida
                 return clientes;
             }
@@ -191,6 +197,11 @@ namespace CadastroClientes.AcessoDados
             {
                 //Relança a excessão para a camada superior
                 throw;
+            }
+            finally
+            {
+                //Fechar a conexão com o banco de dados
+                conn.Close();
             }
         }
 
@@ -208,6 +219,8 @@ namespace CadastroClientes.AcessoDados
 
                 //Criação de uma variável do tipo SqlCommand, que precisa de uma query e de uma instância de conexão com o banco de dados
                 var cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@Codigo", codigo);
 
                 //Abrir a conexão com o banco de dados
                 conn.Open();
@@ -235,9 +248,6 @@ namespace CadastroClientes.AcessoDados
                     cliente.Email = dataReader["Email"].ToString();
                 }
 
-                //Fechar a conexão com o banco de dados
-                conn.Close();
-
                 //Retorna a lista de clientes preenchida
                 return cliente;
             }
@@ -245,6 +255,11 @@ namespace CadastroClientes.AcessoDados
             {
                 //Relança a excessão para a camada superior
                 throw;
+            }
+            finally
+            {
+                //Fechar a conexão com o banco de dados
+                conn.Close();
             }
         }
     }

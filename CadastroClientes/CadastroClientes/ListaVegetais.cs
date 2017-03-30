@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace CadastroClientes.Interface
 {
-    public partial class Form4 : Form
+    public partial class ListaVegetais : Form
     {
-        public Form4()
+        public ListaVegetais()
         {
             InitializeComponent();
         }

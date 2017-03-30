@@ -1,6 +1,6 @@
 ﻿namespace CadastroClientes.Interface
 {
-    partial class Form4
+    partial class ListaVegetais
     {
         /// <summary>
         /// Required designer variable.

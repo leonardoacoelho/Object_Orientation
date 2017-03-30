@@ -1,6 +1,6 @@
 ﻿namespace CadastroClientes.Interface
 {
-    partial class Lista
+    partial class ListaClientes
     {
         /// <summary>
         /// Required designer variable.
@@ -48,6 +48,7 @@
             this.dgvClientes.ReadOnly = true;
             this.dgvClientes.Size = new System.Drawing.Size(446, 399);
             this.dgvClientes.TabIndex = 0;
+            this.dgvClientes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientes_CellDoubleClick);
             // 
             // Codigo
             // 

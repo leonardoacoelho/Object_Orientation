@@ -17,7 +17,7 @@ namespace CadastroClientes.AcessoDados
             conn = Conexao.ObterConexao();
 
         }
-        public void Salvar(Vegetal vegetal)
+        public void Inserir(Vegetal vegetal)
         {
             try
             {
@@ -30,12 +30,16 @@ namespace CadastroClientes.AcessoDados
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
-                conn.Close();
+
             }
             catch (Exception)
             {
 
                 throw;
+            }
+            finally
+            {
+                conn.Close();
             }
 
         }
@@ -53,17 +57,21 @@ namespace CadastroClientes.AcessoDados
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
-                conn.Close();
+
             }
             catch (Exception)
             {
 
                 throw;
             }
+            finally
+            {
+                conn.Close();
+            }
 
         }
 
-        public void Remover( int codigo)
+        public void Remover(int codigo)
         {
             try
             {
@@ -72,17 +80,20 @@ namespace CadastroClientes.AcessoDados
                 var cmd = new SqlCommand(query, conn);
 
                 cmd.Parameters.AddWithValue("@Codigo", codigo);
-                
+
                 conn.Open();
                 cmd.ExecuteNonQuery();
-                conn.Close();
+
             }
             catch (Exception)
             {
 
                 throw;
             }
-
+            finally
+            {
+                conn.Close();
+            }
         }
 
         public List<Vegetal> Listar()
@@ -109,7 +120,7 @@ namespace CadastroClientes.AcessoDados
 
                         vegetais.Add(vegetal);
                     }
-                conn.Close();
+
 
                 return vegetais;
             }
@@ -118,30 +129,46 @@ namespace CadastroClientes.AcessoDados
 
                 throw;
             }
+            finally
+            {
+                conn.Close();
+            }
         }
 
         public Vegetal Encontrar(int codigo)
         {
-            var query = "select * from Vegetais where Codigo = @Codigo ";
-
-            var cmd = new SqlCommand(query, conn);
-
-            conn.Open();
-
-            var datareader = cmd.ExecuteReader();
-
-            var vegetal = new Vegetal();
-
-            if (datareader.HasRows)
+            try
             {
-                datareader.Read();
+                var query = "select * from Vegetais where Codigo = @Codigo ";
 
-                vegetal.Codigo = Convert.ToInt32(datareader["Codigo"].ToString());
-                vegetal.Nome = datareader["Nome"].ToString();
-                vegetal.Tamanho = datareader["Tamanho"].ToString();
+                var cmd = new SqlCommand(query, conn);
+
+                conn.Open();
+
+                var datareader = cmd.ExecuteReader();
+
+                var vegetal = new Vegetal();
+
+                if (datareader.HasRows)
+                {
+                    datareader.Read();
+
+                    vegetal.Codigo = Convert.ToInt32(datareader["Codigo"].ToString());
+                    vegetal.Nome = datareader["Nome"].ToString();
+                    vegetal.Tamanho = datareader["Tamanho"].ToString();
+                }
+
+                return vegetal;
             }
-            conn.Close();
-            return vegetal;
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 }

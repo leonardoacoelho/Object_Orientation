@@ -17,9 +17,57 @@ namespace CadastroClientes.LogicasNegocio
             dados = new VegetalDados();
         }
 
-        public void Finalizar(Vegetal vegetal)
+        private void Inserir(Vegetal vegetal)
         {
-            dados.Salvar(vegetal);
+            try
+            {
+                dados.Inserir(vegetal);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        public void Salvar(Vegetal vegetal)
+        {
+            try
+            {
+                dados.Inserir(vegetal);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void Editar(Vegetal vegetal)
+        {
+            try
+            {
+                dados.Editar(vegetal);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void Remover(int codigo)
+        {
+            try
+            {
+                dados.Remover(codigo);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public List<Vegetal> Mostrar()
@@ -36,5 +84,17 @@ namespace CadastroClientes.LogicasNegocio
             }
         }
 
+        public Vegetal Encontrar(int codigo)
+        {
+            try
+            {
+                return dados.Encontrar(codigo);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

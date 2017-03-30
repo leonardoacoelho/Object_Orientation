@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CadastroClientes.Interface
 {
-    public partial class Form2 : Form
+    public partial class Menu : Form
     {
-        public Form2()
+        public Menu()
         {
             InitializeComponent();
         }
@@ -20,13 +20,13 @@ namespace CadastroClientes.Interface
 
         private void btnCadCli_Click(object sender, EventArgs e)
         {
-            var cadCli = new Form1();
+            var cadCli = new CadastroClientes();
             cadCli.Show();
         }
 
         private void btnCadProd_Click(object sender, EventArgs e)
         {
-            var cadProd = new Form3();
+            var cadProd = new CadastroVegetais();
             cadProd.Show();
         }
 
