@@ -32,6 +32,12 @@ namespace CadastroClientes.Interface
 
         private void CadastroVegetais_Load(object sender, EventArgs e)
         {
+            if(_vegetal != null)
+            {
+                txtCodigo.Text = _vegetal.Codigo.ToString();
+                txtNome.Text = _vegetal.Nome.ToString();
+                txtTam.Text = _vegetal.Tamanho.ToString();
+            }
 
         }
 
@@ -81,6 +87,7 @@ namespace CadastroClientes.Interface
 
         private void LimparCampos()
         {
+            txtCodigo.Text = "";
             txtNome.Text = "";
             txtTam.Text = "";
         }
@@ -89,7 +96,7 @@ namespace CadastroClientes.Interface
         {
             try
             {
-                var result = MessageBox.Show($"Tem certeza que deseja excluir {txtNome}?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var result = MessageBox.Show($"Tem certeza que deseja excluir {txtNome.Text}?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if(result == DialogResult.Yes)
                 {

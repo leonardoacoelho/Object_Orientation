@@ -14,9 +14,13 @@ namespace CadastroClientes.Interface
 {
     public partial class ListaVegetais : Form
     {
+        VegetalLogica _logica;
+
         public ListaVegetais()
         {
             InitializeComponent();
+
+            _logica = new VegetalLogica();
         }
 
         private void Form4_Load(object sender, EventArgs e)
@@ -38,8 +42,29 @@ namespace CadastroClientes.Interface
         {
             if (e.RowIndex >= 0)
             {
-                var codigo = dgvVegetal.Rows[e.RowIndex].Cells["Codigo"].Value.ToString();
-                MessageBox.Show(codigo);
+                var codigo = Convert.ToInt32(dgvVegetal.Rows[e.RowIndex].Cells["Codigo"].Value.ToString());
+
+                try
+                {
+                    var vegetal = _logica.Encontrar(codigo);
+
+                    if(vegetal == null)
+                    {
+                        MessageBox.Show("Nenhum vegetal foi encontrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        var form = new CadastroVegetais(vegetal);
+
+                        form.Show();
+
+                        Hide();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

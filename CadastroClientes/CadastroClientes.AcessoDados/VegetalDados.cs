@@ -143,6 +143,8 @@ namespace CadastroClientes.AcessoDados
 
                 var cmd = new SqlCommand(query, conn);
 
+                cmd.Parameters.AddWithValue("@Codigo", codigo);
+
                 conn.Open();
 
                 var datareader = cmd.ExecuteReader();
