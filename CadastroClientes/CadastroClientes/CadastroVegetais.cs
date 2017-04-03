@@ -33,11 +33,27 @@ namespace CadastroClientes.Interface
 
         private void CadastroVegetais_Load(object sender, EventArgs e)
         {
-            if(_vegetal != null)
+            var grupoVegetalLogica = new GrupoVegetalLogica();
+
+            var grupos = grupoVegetalLogica.Listar();
+
+            if (grupos != null)
+            {
+                foreach (var grupo in grupos)
+                {
+                    cbxGrupo.Items.Add(grupo);
+                }
+            }
+
+            if (_vegetal != null)
             {
                 txtCodigo.Text = _vegetal.Codigo.ToString();
                 txtNome.Text = _vegetal.Nome.ToString();
                 txtTam.Text = _vegetal.Tamanho.ToString();
+
+                var grupo = grupos.FirstOrDefault(x => x.Codigo == _vegetal.GrupoVegetal_Codigo);
+                var index = grupos.IndexOf(grupo);
+                cbxGrupo.SelectedIndex = index;
             }
 
         }
@@ -52,33 +68,37 @@ namespace CadastroClientes.Interface
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
-            if ((txtNome.Text == "") || (txtTam.Text == ""))
-                MessageBox.Show("Os campos em negrito são obrigatóros!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            else
+
+
+            try
             {
-                try
+                var grupo = (GrupoVegetal)cbxGrupo.SelectedItem;
+
+                var vegetal = new Vegetal
                 {
-                    var vegetal = new Vegetal
-                    {
-                        Codigo = ObterCodigo(),
-                        Nome = txtNome.Text,
-                        Tamanho = txtTam.Text
-                    };
+                    Codigo = ObterCodigo(),
+                    Nome = txtNome.Text,
+                    Tamanho = txtTam.Text,
+                    GrupoVegetal = grupo,
+                    GrupoVegetal_Codigo = grupo?.Codigo ?? 0
+                };
 
-                    var logica = new VegetalLogica();
-                    logica.Salvar(vegetal);
+                var logica = new VegetalLogica();
+                logica.Salvar(vegetal);
 
-                    MessageBox.Show("Salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    LimparCampos();
+                LimparCampos();
 
-                    txtNome.Focus();
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
+                txtNome.Focus();
+            }
+            catch (ArgumentNullException)
+            {
+                MessageBox.Show("Os campos em negrito são obrigatórios!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -94,6 +114,7 @@ namespace CadastroClientes.Interface
             txtCodigo.Text = "";
             txtNome.Text = "";
             txtTam.Text = "";
+            cbxGrupo.SelectedIndex = -1;
         }
 
         private void btnRemover_Click(object sender, EventArgs e)
@@ -102,11 +123,11 @@ namespace CadastroClientes.Interface
             {
                 var result = MessageBox.Show($"Tem certeza que deseja excluir {txtNome.Text}?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if(result == DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
                     var codigo = ObterCodigo();
 
-                    if(codigo >= 0)
+                    if (codigo >= 0)
                     {
                         _logica.Remover(codigo);
 

@@ -13,5 +13,10 @@ namespace CadastroClientes.Entidades
         public string Nome { get; set; }
 
         public string Tamanho { get; set; }
+
+        public GrupoVegetal GrupoVegetal { get; set; }
+
+        public int GrupoVegetal_Codigo { get; set; }
+
     }
 }

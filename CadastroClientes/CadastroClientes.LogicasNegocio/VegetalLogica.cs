@@ -35,6 +35,9 @@ namespace CadastroClientes.LogicasNegocio
         {
             try
             {
+                if (string.IsNullOrEmpty(vegetal.Nome) || string.IsNullOrEmpty(vegetal.Tamanho) || vegetal.GrupoVegetal_Codigo == 0)
+                    throw new ArgumentNullException();
+
                 if (vegetal.Codigo == 0)
                     Inserir(vegetal);
                 else

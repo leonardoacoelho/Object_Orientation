@@ -21,12 +21,13 @@ namespace CadastroClientes.AcessoDados
         {
             try
             {
-                var query = "insert into Vegetais (Nome, Tamanho) values (@Nome, @Tamanho)";
+                var query = "insert into Vegetais (Nome, Tamanho, CodigoGrupo) values (@Nome, @Tamanho, @CodigoGrupo)";
 
                 var cmd = new SqlCommand(query, conn);
 
                 cmd.Parameters.AddWithValue("@Nome", vegetal.Nome);
                 cmd.Parameters.AddWithValue("@Tamanho", vegetal.Tamanho);
+                cmd.Parameters.AddWithValue("@CodigoGrupo", vegetal.GrupoVegetal_Codigo);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -48,13 +49,14 @@ namespace CadastroClientes.AcessoDados
         {
             try
             {
-                var query = "update Vegetais set Nome = @Nome, Tamanho = @Tamanho where Codigo = @Codigo";
+                var query = "update Vegetais set Nome = @Nome, Tamanho = @Tamanho, CodigoGrupo = @CodigoGrupo where Codigo = @Codigo";
 
                 var cmd = new SqlCommand(query, conn);
 
                 cmd.Parameters.AddWithValue("@Codigo", vegetal.Codigo);
                 cmd.Parameters.AddWithValue("@Nome", vegetal.Nome);
                 cmd.Parameters.AddWithValue("@Tamanho", vegetal.Tamanho);
+                cmd.Parameters.AddWithValue("@Codigo", vegetal.GrupoVegetal_Codigo);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -101,7 +103,7 @@ namespace CadastroClientes.AcessoDados
         {
             try
             {
-                var query = "select * from Vegetais";
+                var query = "select veg.*, grp.Nome as NomeGrupo from Vegetais as veg join GruposVegetais as grp on veg.CodigoGrupo = grp.Codigo";
 
                 var cmd = new SqlCommand(query, conn);
 
@@ -117,6 +119,12 @@ namespace CadastroClientes.AcessoDados
                         vegetal.Codigo = Convert.ToInt32(datareader["Codigo"].ToString());
                         vegetal.Nome = datareader["Nome"].ToString();
                         vegetal.Tamanho = datareader["Tamanho"].ToString();
+                        vegetal.GrupoVegetal_Codigo = Convert.ToInt32(datareader["CodigoGrupo"].ToString());
+                        vegetal.GrupoVegetal = new GrupoVegetal
+                        {
+                            Codigo = Convert.ToInt32(datareader["CodigoGrupo"].ToString()),
+                            Nome = datareader["NomeGrupo"].ToString()
+                        };
 
                         vegetais.Add(vegetal);
                     }
@@ -139,7 +147,7 @@ namespace CadastroClientes.AcessoDados
         {
             try
             {
-                var query = "select * from Vegetais where Codigo = @Codigo ";
+                var query = "select veg.*, grp.Nome as NomeGrupo from Vegetais as veg join GruposVegetais as grp on veg.CodigoGrupo = grp.Codigo where veg.Codigo = @Codigo ";
 
                 var cmd = new SqlCommand(query, conn);
 
@@ -158,6 +166,13 @@ namespace CadastroClientes.AcessoDados
                     vegetal.Codigo = Convert.ToInt32(datareader["Codigo"].ToString());
                     vegetal.Nome = datareader["Nome"].ToString();
                     vegetal.Tamanho = datareader["Tamanho"].ToString();
+                    vegetal.GrupoVegetal_Codigo = Convert.ToInt32(datareader["CodigoGrupo"].ToString());
+                    vegetal.GrupoVegetal = new GrupoVegetal
+                    {
+                        Codigo = Convert.ToInt32(datareader["CodigoGrupo"].ToString()),
+                        Nome = datareader["NomeGrupo"].ToString()
+                    };
+
                 }
 
                 return vegetal;
