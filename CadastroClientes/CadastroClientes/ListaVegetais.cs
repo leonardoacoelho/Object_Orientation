@@ -1,4 +1,5 @@
 ﻿using CadastroClientes.Entidades;
+using CadastroClientes.Interface.Base;
 using CadastroClientes.LogicasNegocio;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ using System.Windows.Forms;
 
 namespace CadastroClientes.Interface
 {
-    public partial class ListaVegetais : Form
+    public partial class ListaVegetais : BaseForm
     {
         VegetalLogica _logica;
 
-        public ListaVegetais()
+        public ListaVegetais(Menu menu) : base(menu)
         {
             InitializeComponent();
 
@@ -28,7 +29,7 @@ namespace CadastroClientes.Interface
             try
             {
                 var logica = new VegetalLogica();
-                dgvVegetal.DataSource = logica.Mostrar();
+                dgvVegetal.DataSource = logica.Listar();
 
             }
             catch (Exception)
@@ -54,7 +55,7 @@ namespace CadastroClientes.Interface
                     }
                     else
                     {
-                        var form = new CadastroVegetais(vegetal);
+                        var form = new CadastroVegetais(FormularioMenu, vegetal);
 
                         form.Show();
 

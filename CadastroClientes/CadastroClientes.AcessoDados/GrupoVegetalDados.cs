@@ -8,29 +8,26 @@ using System.Threading.Tasks;
 
 namespace CadastroClientes.AcessoDados
 {
-    public class VegetalDados
+    public class GrupoVegetalDados
     {
         SqlConnection conn;
 
-        public VegetalDados()
+        public GrupoVegetalDados()
         {
             conn = Conexao.ObterConexao();
-
         }
-        public void Inserir(Vegetal vegetal)
+        public void Inserir(GrupoVegetal grupo)
         {
             try
             {
-                var query = "insert into Vegetais (Nome, Tamanho) values (@Nome, @Tamanho)";
+                var query = $"insert into GruposVegetais (Nome) values (@Nome)";
 
                 var cmd = new SqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@Nome", vegetal.Nome);
-                cmd.Parameters.AddWithValue("@Tamanho", vegetal.Tamanho);
+                cmd.Parameters.AddWithValue("@Nome", grupo.Nome);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
-
             }
             catch (Exception)
             {
@@ -41,24 +38,21 @@ namespace CadastroClientes.AcessoDados
             {
                 conn.Close();
             }
-
         }
 
-        public void Editar(Vegetal vegetal)
+        public void Editar(GrupoVegetal grupo)
         {
             try
             {
-                var query = "update Vegetais set Nome = @Nome, Tamanho = @Tamanho where Codigo = @Codigo";
+                var query = $"update GruposVegetais set Nome = @Nome where Codigo = @Codigo";
 
                 var cmd = new SqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@Codigo", vegetal.Codigo);
-                cmd.Parameters.AddWithValue("@Nome", vegetal.Nome);
-                cmd.Parameters.AddWithValue("@Tamanho", vegetal.Tamanho);
+                cmd.Parameters.AddWithValue("@Nome", grupo.Nome);
+                cmd.Parameters.AddWithValue("@Codigo", grupo.Codigo);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
-
             }
             catch (Exception)
             {
@@ -69,14 +63,13 @@ namespace CadastroClientes.AcessoDados
             {
                 conn.Close();
             }
-
         }
 
         public void Remover(int codigo)
         {
             try
             {
-                var query = "delete from Vegetais where Codigo = @Codigo";
+                var query = $"delete from GruposVegetais where Codigo = @Codigo";
 
                 var cmd = new SqlCommand(query, conn);
 
@@ -84,7 +77,6 @@ namespace CadastroClientes.AcessoDados
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
-
             }
             catch (Exception)
             {
@@ -97,32 +89,32 @@ namespace CadastroClientes.AcessoDados
             }
         }
 
-        public List<Vegetal> Listar()
+        public List<GrupoVegetal> Listar()
         {
             try
             {
-                var query = "select * from Vegetais";
+                var query = "select * from GruposVegetais";
 
                 var cmd = new SqlCommand(query, conn);
 
-                var vegetais = new List<Vegetal>();
+                var grupos = new List<GrupoVegetal>();
 
                 conn.Open();
                 var datareader = cmd.ExecuteReader();
 
                 if (datareader.HasRows)
+                {
                     while (datareader.Read())
                     {
-                        var vegetal = new Vegetal();
-                        vegetal.Codigo = Convert.ToInt32(datareader["Codigo"].ToString());
-                        vegetal.Nome = datareader["Nome"].ToString();
-                        vegetal.Tamanho = datareader["Tamanho"].ToString();
+                        var grupo = new GrupoVegetal();
 
-                        vegetais.Add(vegetal);
+                        grupo.Codigo = Convert.ToInt32(datareader["Codigo"].ToString());
+                        grupo.Nome = datareader["Nome"].ToString();
+
+                        grupos.Add(grupo);
                     }
-
-
-                return vegetais;
+                }
+                return grupos;
             }
             catch (Exception)
             {
@@ -135,11 +127,11 @@ namespace CadastroClientes.AcessoDados
             }
         }
 
-        public Vegetal Encontrar(int codigo)
+        public GrupoVegetal Encontrar(int codigo)
         {
             try
             {
-                var query = "select * from Vegetais where Codigo = @Codigo ";
+                var query = $"select * from GruposVegetais where Codigo = @Codigo";
 
                 var cmd = new SqlCommand(query, conn);
 
@@ -149,18 +141,16 @@ namespace CadastroClientes.AcessoDados
 
                 var datareader = cmd.ExecuteReader();
 
-                var vegetal = new Vegetal();
+                var grupo = new GrupoVegetal();
 
                 if (datareader.HasRows)
                 {
                     datareader.Read();
 
-                    vegetal.Codigo = Convert.ToInt32(datareader["Codigo"].ToString());
-                    vegetal.Nome = datareader["Nome"].ToString();
-                    vegetal.Tamanho = datareader["Tamanho"].ToString();
+                    grupo.Codigo = Convert.ToInt32(datareader["Codigo"].ToString());
+                    grupo.Nome = datareader["Nome"].ToString();
                 }
-
-                return vegetal;
+                return grupo;
             }
             catch (Exception)
             {

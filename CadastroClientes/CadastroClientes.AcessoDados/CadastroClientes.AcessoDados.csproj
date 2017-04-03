@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="ClienteDados.cs" />
     <Compile Include="Conexao.cs" />
+    <Compile Include="GrupoVegetalDados.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VegetalDados.cs" />
   </ItemGroup>

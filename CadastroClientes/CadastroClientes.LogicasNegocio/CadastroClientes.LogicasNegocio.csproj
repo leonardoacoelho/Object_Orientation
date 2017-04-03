@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClienteLogica.cs" />
+    <Compile Include="GrupoVegetalLogica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VegetalLogica.cs" />
   </ItemGroup>

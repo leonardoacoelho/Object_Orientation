@@ -1,6 +1,6 @@
 ﻿namespace CadastroClientes.Interface
 {
-    partial class ListaClientes
+    partial class ListaGrupos
     {
         /// <summary>
         /// Required designer variable.
@@ -28,27 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgvClientes = new System.Windows.Forms.DataGridView();
+            this.dgvListaGrupos = new System.Windows.Forms.DataGridView();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListaGrupos)).BeginInit();
             this.SuspendLayout();
             // 
-            // dgvClientes
+            // dgvListaGrupos
             // 
-            this.dgvClientes.AllowUserToAddRows = false;
-            this.dgvClientes.AllowUserToDeleteRows = false;
-            this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvListaGrupos.AllowUserToAddRows = false;
+            this.dgvListaGrupos.AllowUserToDeleteRows = false;
+            this.dgvListaGrupos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvListaGrupos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvListaGrupos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Codigo,
             this.Nome});
-            this.dgvClientes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvClientes.Location = new System.Drawing.Point(0, 0);
-            this.dgvClientes.Name = "dgvClientes";
-            this.dgvClientes.ReadOnly = true;
-            this.dgvClientes.Size = new System.Drawing.Size(446, 399);
-            this.dgvClientes.TabIndex = 0;
-            this.dgvClientes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientes_CellDoubleClick);
+            this.dgvListaGrupos.Location = new System.Drawing.Point(2, 0);
+            this.dgvListaGrupos.Name = "dgvListaGrupos";
+            this.dgvListaGrupos.ReadOnly = true;
+            this.dgvListaGrupos.Size = new System.Drawing.Size(244, 225);
+            this.dgvListaGrupos.TabIndex = 0;
+            this.dgvListaGrupos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListaGrupos_CellDoubleClick);
             // 
             // Codigo
             // 
@@ -63,26 +65,25 @@
             this.Nome.HeaderText = "Nome";
             this.Nome.Name = "Nome";
             this.Nome.ReadOnly = true;
-            this.Nome.Width = 300;
             // 
-            // ListaClientes
+            // ListaGrupos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 399);
-            this.Controls.Add(this.dgvClientes);
-            this.Name = "ListaClientes";
+            this.ClientSize = new System.Drawing.Size(245, 225);
+            this.Controls.Add(this.dgvListaGrupos);
+            this.Name = "ListaGrupos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Lista";
-            this.Load += new System.EventHandler(this.Lista_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
+            this.Text = "Lista Grupos";
+            this.Load += new System.EventHandler(this.ListaGrupos_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListaGrupos)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvClientes;
+        private System.Windows.Forms.DataGridView dgvListaGrupos;
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nome;
     }

@@ -26,5 +26,10 @@ namespace CadastroClientes.AcessoDados
             //Retorna uma instância de conexão SqlConnection conforme assinatura do método 
             return conn;
         }
+
+        internal static SqlConnection ObterConexão()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

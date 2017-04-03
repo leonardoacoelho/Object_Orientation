@@ -8,37 +8,36 @@ using System.Threading.Tasks;
 
 namespace CadastroClientes.LogicasNegocio
 {
-    public class VegetalLogica
+    public class GrupoVegetalLogica
     {
-        VegetalDados dados;
+        GrupoVegetalDados dados;
 
-        public VegetalLogica()
+        public GrupoVegetalLogica()
         {
-            dados = new VegetalDados();
+            dados = new GrupoVegetalDados();
         }
 
-        private void Inserir(Vegetal vegetal)
+        private void Inserir(GrupoVegetal grupo)
         {
             try
             {
-                dados.Inserir(vegetal);
+                dados.Inserir(grupo);
             }
             catch (Exception)
             {
 
                 throw;
             }
-
         }
 
-        public void Salvar(Vegetal vegetal)
+        public void Salvar(GrupoVegetal grupo)
         {
             try
             {
-                if (vegetal.Codigo == 0)
-                    Inserir(vegetal);
+                if (grupo.Codigo == 0)
+                    dados.Inserir(grupo);
                 else
-                    Editar(vegetal);
+                    dados.Editar(grupo);
             }
             catch (Exception)
             {
@@ -47,11 +46,11 @@ namespace CadastroClientes.LogicasNegocio
             }
         }
 
-        private void Editar(Vegetal vegetal)
+        private void Editar(GrupoVegetal grupo)
         {
             try
             {
-                dados.Editar(vegetal);
+                dados.Editar(grupo);
             }
             catch (Exception)
             {
@@ -73,7 +72,7 @@ namespace CadastroClientes.LogicasNegocio
             }
         }
 
-        public List<Vegetal> Listar()
+        public List<GrupoVegetal> Listar()
         {
             try
             {
@@ -82,12 +81,11 @@ namespace CadastroClientes.LogicasNegocio
             catch (Exception)
             {
 
-
                 throw;
             }
         }
 
-        public Vegetal Encontrar(int codigo)
+        public GrupoVegetal Encontrar(int codigo)
         {
             try
             {

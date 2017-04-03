@@ -17,18 +17,26 @@ namespace CadastroClientes.Interface
             InitializeComponent();
         }
 
-
-        private void btnCadCli_Click(object sender, EventArgs e)
+        private void clientesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var cadCli = new CadastroClientes();
+            var cadCli = new CadastroClientes(this);
+
             cadCli.Show();
         }
 
-        private void btnCadProd_Click(object sender, EventArgs e)
+        private void vegetaisToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var cadProd = new CadastroVegetais();
-            cadProd.Show();
+            var cadVeg = new CadastroVegetais(this);
+
+            cadVeg.Show();
+
         }
 
+        private void gruposToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var cadGrupo = new GruposVegetais(this);
+
+            cadGrupo.Show();
+        }
     }
 }

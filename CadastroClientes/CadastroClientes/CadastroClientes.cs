@@ -1,4 +1,5 @@
 ﻿using CadastroClientes.Entidades;
+using CadastroClientes.Interface.Base;
 using CadastroClientes.LogicasNegocio;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Windows.Forms;
 
 namespace CadastroClientes.Interface
 {
-    public partial class CadastroClientes : Form
+    public partial class CadastroClientes : BaseForm
     {
         //Cria uma variavel do tipo cliente (Entidade)
         Cliente _cliente;
@@ -22,17 +23,19 @@ namespace CadastroClientes.Interface
         ClienteLogica _logica;
 
         //Construtor 1 
-        public CadastroClientes()
+        public CadastroClientes(Menu menu) : base(menu)
         {
             //Inicializa o Form (vem por padrão Não Alterar/Remover)
             InitializeComponent();
 
             //Instancia um objeto da camada de lógica
             _logica = new ClienteLogica();
+
+
         }
 
         //Construtor 2, recebe um cliente como parametro. Através da sobrecarga ': this()' chamamos o construtor acima, para que, antes de executar o código contido abaixo seja executado o código do construtor 1
-        public CadastroClientes(Cliente cliente) : this()
+        public CadastroClientes(Menu menu, Cliente cliente) : this(menu)
         {
             //Preencher o cliente que criamos anteriormente com os dados do cliente que chegou por parametro
             _cliente = cliente;
@@ -90,7 +93,7 @@ namespace CadastroClientes.Interface
 
         //Evento ao clicar no botao Novo Cadastro
         private void btnNovo_Click(object sender, EventArgs e)
-        { 
+        {
             LimparCampos();
         }
 
@@ -117,7 +120,7 @@ namespace CadastroClientes.Interface
         private void btnVer_Click(object sender, EventArgs e)
         {
             //Instancia um objeto do tipo ListaClientes (Form)
-            var lista = new ListaClientes();
+            var lista = new ListaClientes(FormularioMenu);
 
             //Mostra o formulário LIstaClientes
             lista.Show();

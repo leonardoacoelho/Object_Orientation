@@ -160,6 +160,7 @@
             this.Controls.Add(this.txtNome);
             this.Controls.Add(this.label1);
             this.Name = "CadastroVegetais";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Vegetais";
             this.Load += new System.EventHandler(this.CadastroVegetais_Load);
             this.ResumeLayout(false);

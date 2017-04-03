@@ -13,96 +13,90 @@ using System.Windows.Forms;
 
 namespace CadastroClientes.Interface
 {
-    public partial class CadastroVegetais : BaseForm
+    public partial class GruposVegetais : BaseForm
     {
-        Vegetal _vegetal;
+        GrupoVegetal _grupo;
 
-        VegetalLogica _logica;
+        GrupoVegetalLogica _logica;
 
-        public CadastroVegetais(Menu menu) : base(menu)
+        public GruposVegetais(Menu menu) : base(menu)
         {
             InitializeComponent();
 
-            _logica = new VegetalLogica();
+            _logica = new GrupoVegetalLogica();
         }
 
-        public CadastroVegetais(Menu menu, Vegetal vegetal) : this(menu)
+        public GruposVegetais(Menu menu, GrupoVegetal grupo) : this(menu)
         {
-            _vegetal = vegetal;
+            _grupo = grupo;
         }
 
-        private void CadastroVegetais_Load(object sender, EventArgs e)
+        private void GruposVegetais_Load(object sender, EventArgs e)
         {
-            if(_vegetal != null)
+            if (_grupo != null)
             {
-                txtCodigo.Text = _vegetal.Codigo.ToString();
-                txtNome.Text = _vegetal.Nome.ToString();
-                txtTam.Text = _vegetal.Tamanho.ToString();
+                txtCodigo.Text = _grupo.Codigo.ToString();
+                txtNome.Text = _grupo.Nome.ToString();
             }
-
-        }
-
-        private void btnVer_Click(object sender, EventArgs e)
-        {
-            var lista = new ListaVegetais(FormularioMenu);
-            lista.Show();
-
-            Hide();
         }
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
-            if ((txtNome.Text == "") || (txtTam.Text == ""))
+            if (string.IsNullOrEmpty(txtNome.Text))
                 MessageBox.Show("Os campos em negrito são obrigatóros!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
             else
-            {
                 try
                 {
-                    var vegetal = new Vegetal
+                    var grupo = new GrupoVegetal
                     {
                         Codigo = ObterCodigo(),
-                        Nome = txtNome.Text,
-                        Tamanho = txtTam.Text
+                        Nome = txtNome.Text
                     };
 
-                    var logica = new VegetalLogica();
-                    logica.Salvar(vegetal);
+                    var logica = new GrupoVegetalLogica();
+                    logica.Salvar(grupo);
 
                     MessageBox.Show("Salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    LimparCampos();
+                    LimpaCampos();
 
                     txtNome.Focus();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-                    throw;
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            LimparCampos();
+            LimpaCampos();
 
             txtNome.Focus();
         }
 
-        private void LimparCampos()
+        private void LimpaCampos()
         {
             txtCodigo.Text = "";
             txtNome.Text = "";
-            txtTam.Text = "";
+        }
+
+        private void btnVer_Click(object sender, EventArgs e)
+        {
+            var lista = new ListaGrupos(FormularioMenu);
+            lista.Show();
+
+            Hide();
         }
 
         private void btnRemover_Click(object sender, EventArgs e)
         {
             try
             {
-                var result = MessageBox.Show($"Tem certeza que deseja excluir {txtNome.Text}?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var result = MessageBox.Show($"Tem certeza que deseja excluir {txtNome.Text}?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
-                if(result == DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
                     var codigo = ObterCodigo();
 
@@ -112,7 +106,7 @@ namespace CadastroClientes.Interface
 
                         MessageBox.Show("Removido com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        LimparCampos();
+                        LimpaCampos();
 
                         txtNome.Focus();
                     }
@@ -131,3 +125,4 @@ namespace CadastroClientes.Interface
         }
     }
 }
+

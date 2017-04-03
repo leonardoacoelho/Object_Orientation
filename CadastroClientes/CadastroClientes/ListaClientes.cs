@@ -1,4 +1,5 @@
-﻿using CadastroClientes.LogicasNegocio;
+﻿using CadastroClientes.Interface.Base;
+using CadastroClientes.LogicasNegocio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,13 +12,13 @@ using System.Windows.Forms;
 
 namespace CadastroClientes.Interface
 {
-    public partial class ListaClientes : Form
+    public partial class ListaClientes : BaseForm
     {
         //Cria uma variável da camada de lógica de negócios
         ClienteLogica _logica;
 
         //Construtor
-        public ListaClientes()
+        public ListaClientes(Menu menu) : base(menu)
         {
             //Inicializa o Form (vem por padrão Não Alterar/Remover)
             InitializeComponent();
@@ -60,7 +61,7 @@ namespace CadastroClientes.Interface
                     else
                     {
                         //Caso não, instanciamos um objeto do form de cadastro de clientes passando como parametro o cliente encontrado
-                        var form = new CadastroClientes(cliente);
+                        var form = new CadastroClientes(FormularioMenu, cliente);
 
                         //Abrir o form CadastroClientes
                         form.Show();
